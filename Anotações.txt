@@ -1,0 +1,13 @@
+Build e dependências em uma aplicação Java
+
+Usar o Maven é bom para testar a aplicação antes de construir o arquivo para
+deploy. Modificações em arquivos de configuração, nos nomes dos arquivos e
+pastas etc. podem ser automatizados com o uso do Maven.
+
+A Apache criou duas ferramentas, das quais o Maven surgiu:
+    Ant - para fazer build (compilar e testar) das aplicações; e
+    Ivy - para gerenciar dependências.
+
+O Eclipse tem opções para converter um projeto qualquer em um projeto do Maven:
+    Botão direito no projeto -> Configure -> Convert to Maven Project.
+    
