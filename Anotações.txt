@@ -11,3 +11,40 @@ A Apache criou duas ferramentas, das quais o Maven surgiu:
 O Eclipse tem opções para converter um projeto qualquer em um projeto do Maven:
     Botão direito no projeto -> Configure -> Convert to Maven Project.
     
+
+GroupId = pacote padrão (br.com.alura)
+ArtifactId = nome do projeto (loja)
+Version = Versão (1.0.0)
+Packaging = Forma de build/empacotamento (jar)
+
+Estrutura padrão de um projeto Maven:
+    * src/main/java         Classes de Código Java
+    * src/main/resources    Config Files e HTML. Tudo que não é Java.
+    * src/test/java         Classes de Código Java de Teste
+    * src/test/resources    Config Files dos Testes. DBUnit, Selenium etc.
+
+Crie um projeto Dynamic Web Project e o converta para Maven:
+    Botão direito no projeto -> Configure -> Convert to Maven Project.
+
+O Eclipse infere as dependências usadas no projeto e gera o arquivo pom.xml. 
+A estrutura de pastas, no entanto, não é atualizada na forma da estrutura 
+padrão de projetos Maven. O pom.xml também não atualiza a referência ao 
+diretório de código-fonte e o diretório do código dos testes. Para isso, rode:
+    Botão direito no projeto -> Build Path -> Configure Build Path...
+
+    Na guia Source, remova/edite os diretórios conforme o padrão do Maven.
+    A pasta test/java precisa ser configurada para conter test sources. Expanda
+    a pasta test/java e altere para Yes a opção "Contains test sources". Além
+    disso, nas duas pastas de teste, marque a caixa "Allow output folder for 
+    source folders" e altere a pasta output folder para "target/test-classes".
+    Nas pastas test/resources e main/resources, clique duas vezes sobre 
+    "Excluded" e acrescente o padrão de exclusão "**" (dois asteriscos).
+
+    A pasta Web-Content de Dynamic Web Projects deve ser renomeada/movida para 
+    src/main/webapp.
+
+    A pasta lib em webapp (Web-Content) não precisa ser guardada, porque o 
+    Maven vai baixar as libs depois.
+
+    Para que o Maven atualize o projeto, clique com o botão direito sobre o
+    projeto -> Maven -> Update Project (ou Alt + F5)
