@@ -15,7 +15,7 @@ O Eclipse tem opções para converter um projeto qualquer em um projeto do Maven
 GroupId = pacote padrão (br.com.alura)
 ArtifactId = nome do projeto (loja)
 Version = Versão (1.0.0)
-Packaging = Forma de build/empacotamento (jar)
+Packaging = Forma de build/empacotamento (jar é o default)
 
 Estrutura padrão de um projeto Maven:
     * src/main/java         Classes de Código Java
@@ -90,3 +90,50 @@ cache, ele procura nos repositórios. Esse cache fica localizado na pasta .m2,
 dentro da pasta do usuário (home) do computador. Às vezes o download das 
 dependências não funciona bem porque elas estão corrompidas. Nesse caso, você
 pode excluir o conteúdo da baixa .m2. e repetir o download das dependências.
+
+
+Foco de agora: os goals (objetivos) do Maven. Sintaxe: mvn (goal1 goal2 ...).
+    mvn compile => gera os arquivos .class da aplicação.
+    mvn clean => apaga o diretório target (onde fica os compilados).
+    mvn clean compile => apaga os compilados e depois compila.
+    mvn test => roda os testes da pasta src/test do projeto.
+    mvn package => empacota no formato jar ou war, conforme a tag <packaging>
+            no pom.xml. Esse comando compila, testa e gera o artefato de build.
+            Repare que se houver falhas nos testes, o pacote não é gerado.
+    mvn install => envia o pacote para o cache do Maven (.m2). Geralmente
+            é o caminho do pacote do compilado. Ex.:br.com.alura.loja.
+    mvn deploy => envia o pacote para um repositório remoto. Para que o comando
+            funcione, é necessário configurar dentro da tag <repositories>.
+
+O Maven tenta usar o Java 5 como padrão para contruir o código. Isso pode 
+resultar no seguinte erro: 
+
+    [ERROR] Failed to execute goal 
+    org.apache.maven.plugins:maven-compiler-plugin:3.1:compile 
+    (default-compile) on project lo[ERROR] Source option 5 is no longer 
+    supported. Use 7 or later.
+    [ERROR] Target option 5 is no longer supported. Use 7 or later.
+
+Para corrigir isso, inclua um dos seguintes códigos no pom.xml:
+
+	1) Properties
+        <properties>
+            <maven.compiler.source>${versão:1.7}</maven.compiler.source>
+            <maven.compiler.target>${versão:1.7}</maven.compiler.target>
+        </properties>
+
+    2) Build
+        <build>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>${versão do Java:1.7}</source>
+                        <target>${versão do Java:1.7}</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+
+Dentro da tag <build>, podemos inserir a tag <finalName>, que vai indicar o 
+nome do pacote no repositório.
