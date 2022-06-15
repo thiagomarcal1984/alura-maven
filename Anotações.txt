@@ -137,3 +137,20 @@ Para corrigir isso, inclua um dos seguintes códigos no pom.xml:
 
 Dentro da tag <build>, podemos inserir a tag <finalName>, que vai indicar o 
 nome do pacote no repositório.
+
+
+Plugins são formas de manipular o build da aplicação. Os plugins são declarados
+dentro tag <build> no arquivo pom.xml. Para executar um goal de um plugin, use 
+a sintaxe "mvn plugin:goal". Por exemplo: se você usar um plugin do Jetty no 
+pom.xml (para substituir o Tomcat pelo container embutido Jetty), você pode 
+executá-lo com o comando "mvn jetty:run".
+
+É possível criarmos um plugin personalizado para incrementar o build do Maven.
+
+Uma vez que o goal report é executado no Jacoco, um HTML é gerado com a 
+indicação da cobertura dos testes. Ele fica em target\site\jacoco\index.html .
+Na fase test (que está no pom.xml), o goal report é acionado automaticamente.
+Então, para gerar o report basta usar o mvn test que o goal report é acionado.
+
+Obs.: a versão do Jacoco no curso é a 0.8.2, mas ela está falhando. Por isso,
+atualizamos a versão para 0.8.6 e funcionou.
