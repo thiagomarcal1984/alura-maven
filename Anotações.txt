@@ -163,3 +163,86 @@ O arquivo settings.xml também pode guardar a tag <repositories>, da mesma forma
 que o arquivo pom.xml. Assim, o repositório não fica exclusivo pro projeto, mas
 fica acessível para qualquer projeto no computador. No entanto, configurações
 do pom.xml sobrescrevem as definições gerais do settings.xml.
+
+
+Módulos no Maven são formas de agrupar vários projetos, cada um com um pom.xml
+separado. Para criar um módulo no Maven, defina dentro da tag project:
+    1) a tag <packaging> com o valor pom;
+    2) a tag <modules> com os projetos que compõem o módulo.
+
+Módulos permitem o build de todos os projetos do módulo de uma só vez, ao invés
+de fazer build projeto a projeto.
+
+Estrutura do pom.xml de um módulo:
+    <project ...>
+        <modelVersion>4.0.0</modelVersion>
+        ...
+        <packaging>pom</packaging>.
+
+        ...
+
+        <modules>
+            <module>modulo1</module>
+            <module>modulo2</module>
+            ...
+        </modules>
+
+    </project>
+
+Cada projeto referenciado no módulo herda as dependências do módulo pai.
+Estrutura do pom de cada projeto referenciado no módulo:
+    <project ...>
+        <modelVersion>4.0.0</modelVersion>
+        ...
+        <packaging>pom</packaging>.
+
+        ...
+
+        <parent>
+            <groupId>pack.geral.do.modulo</groupId>
+            <artifactId>projeto</artifactId>
+            <version>1.0</version>
+        </parent>
+
+    </project>
+
+
+Os projetos que compõem o módulo podem ter dependências entre si (o projetoA
+pode depender do projetoB, e ambos podem depende de projetC etc). 
+
+Os módulos também podem ser enviados para o Maven Repository na internet, 
+semelhante ao que acontece com as imagens do Docker.
+
+
+
+-------------------------------------------------------------------------------
+Resumo
+-------------------------------------------------------------------------------
+
+Dois pilares do Maven:
+    1) Gestão de dependências;
+    2) Build.
+
+Estrutura padrão de um projeto Maven:
+    * src/main/java         Classes de Código Java
+    * src/main/resources    Config Files e HTML. Tudo que não é Java.
+    * src/test/java         Classes de Código Java de Teste
+    * src/test/resources    Config Files dos Testes. DBUnit, Selenium etc.
+
+Elementos comuns do pom.xml:
+    1) modelo de versão do maven <modelVersion>
+    2) Identificação do projeto (groupId, artifactId, version)
+    3) Dependências <dependencies>. Alguns escopos das dependências:
+        compile, provided, runtime, test
+    4) Repositórios <repositories>
+    5) Build <build> e seus plugins. Alguns goals associados ao build:
+        compile, clean, test, package, install, deploy
+    6) Properties <properties>, para configurar a versão Java etc.
+
+Elementos úteis no settings.xml:
+    1) Informações de <proxy> 
+    2) Repositórios <repositories>
+
+Módulos possuem as seguintes tags adicionais em seus pom.xml:
+    1) <packaging>pom</packaging>;
+    2) <modules> <module>...</module> </modules>
