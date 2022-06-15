@@ -154,3 +154,12 @@ Então, para gerar o report basta usar o mvn test que o goal report é acionado.
 
 Obs.: a versão do Jacoco no curso é a 0.8.2, mas ela está falhando. Por isso,
 atualizamos a versão para 0.8.6 e funcionou.
+
+
+É necessário alterar o arquivo .m2/settings.xml para configurar o proxy.
+Como configurar Proxy: https://maven.apache.org/guides/mini/guide-proxies.html
+
+O arquivo settings.xml também pode guardar a tag <repositories>, da mesma forma
+que o arquivo pom.xml. Assim, o repositório não fica exclusivo pro projeto, mas
+fica acessível para qualquer projeto no computador. No entanto, configurações
+do pom.xml sobrescrevem as definições gerais do settings.xml.
