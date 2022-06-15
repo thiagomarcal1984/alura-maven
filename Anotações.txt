@@ -48,3 +48,45 @@ diretório de código-fonte e o diretório do código dos testes. Para isso, rod
 
     Para que o Maven atualize o projeto, clique com o botão direito sobre o
     projeto -> Maven -> Update Project (ou Alt + F5)
+
+
+Hierarquia das tags de dependências no pom.xml
+    <dependencies>
+        <dependency>
+            <groupId>nome.do.pack</groupId>
+            <artifact>projeto</artifact>
+            <version>3.2.1</version>
+            <scope>test</scope>
+            <!-- 
+                Scope compile: só é usada para a compilação do pacote.
+                Scope provided: o servidor de aplicação fornece a biblioteca.
+                Scope runtime: usada em tempo de execução.
+                Scope test: usada apenas nos testes.
+            -->
+        </dependency>
+    </dependencies>
+
+Ao baixar o junit, há uma dependência chamada hamcrest. Ela não foi declarada,
+mas foi baixada.
+
+
+Onde podemos pesquisar as dependências do Maven? 
+No site MVN Repository: https://mvnrepository.com/
+
+Comando no Eclipse para atualizar as dependências do projeto: Alt + F5, ou:
+    Botão direito -> Maven -> Update Maven Project
+
+O arquivo pom.xml pode conter outros repositórios além do mvnrepository.com.:
+    <repositories>
+        <repository>
+            <id>spring-repo</id>
+            <url>https://repo.spring.io/release</url>
+            <!-- A URL pode indicar alguma pasta local ou de rede interna. -->
+        </repository>
+    </repositories>
+
+Por padrão, o Maven procura as dependências no seu cache local. Se não achar no
+cache, ele procura nos repositórios. Esse cache fica localizado na pasta .m2, 
+dentro da pasta do usuário (home) do computador. Às vezes o download das 
+dependências não funciona bem porque elas estão corrompidas. Nesse caso, você
+pode excluir o conteúdo da baixa .m2. e repetir o download das dependências.
